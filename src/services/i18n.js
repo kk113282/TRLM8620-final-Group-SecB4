@@ -22,6 +22,7 @@ const i18n = {
             }
         }
     },
+    
 
     //load resource json based on locale
     getString: (view, key) => {
@@ -42,29 +43,45 @@ const i18n = {
     getHTML: () => {
         return `${locale}/terms.html`; //$NON-NLS-L$ 
     },
-    //format date accoring to locale
-    formatDate: (date) => {
-        var options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
-        return new Intl.DateTimeFormat([locale, 'en-US'], options).format(date); //$NON-NLS-L$
-    }
+   // Format date according to locale
+   formatDate: (date) => {
+    let options = dateMap[locale] || dateMap['en-US']; // Default to US if locale not set
+    return new Intl.DateTimeFormat(locale, options).format(date);
+}
 }
 
-//used to determine the correct currency symbol
+    
+// Currency and date configurations for each locale
 var currencyMap = {
     'en-US': 'USD',
+    'es-ES': 'EUR',
     'zh-CN': 'CNY',
 };
 
-//function to perform rough conversion from galactic credits to real currencies
+var dateMap = {
+    'en-US': { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
+    'es-ES': { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' },
+    'zh-CN': { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric' }
+};
+
+// Function to perform rough conversion from USD to target currency
 var convertCurrency = (price) => {
     switch (locale) {
         case 'en-US':
-            return price * 1;
+            return price; // Assume price is in USD
+        case 'es-ES':
+            return price * 0.93; // Example conversion rate to EUR
         case 'zh-CN':
-            return price * 7; 
+            return price * 7; // Example conversion rate to CNY
         default:
             return price;
     }
 }
 
 export default i18n;
+
+
+
+
+  
+
