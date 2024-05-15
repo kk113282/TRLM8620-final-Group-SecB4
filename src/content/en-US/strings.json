@@ -104,6 +104,7 @@
     "LocaleSelector": {
         "localeLabel": "Locale: ",
         "localeEN": "English - US",
+        "localeES": "Español - ES",
         "localeZH": "Chinese - China"
     },
     "Special": "Special"
